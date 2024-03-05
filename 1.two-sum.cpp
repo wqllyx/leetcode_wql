@@ -35,17 +35,14 @@ using namespace std;
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        int k = 0;
-        int s = 0;
-        for (auto i = nums.begin() ; i != nums.end() - 1; ++i) {
-            s = k + 1;
-            for (auto j = i + 1; j != nums.end(); ++j) {
-                if (*i + *j == target) {
-                    return {k,s};
-                }
-                s++;
+        unordered_map<int, int> hash_table;
+        for (int i = 0; i < nums.size(); ++i){
+            int j = target - nums[i];
+            if ( hash_table.find(j) == hash_table.end() ){ // 如果哈希表中不存在对应的元素，将当前元素放入哈希表
+                hash_table.insert(make_pair(nums[i], i));
             }
-            k++;
+            else
+                return {i, hash_table[j]};
         }
         return {};
     }
