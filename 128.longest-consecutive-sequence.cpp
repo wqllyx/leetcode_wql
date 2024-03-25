@@ -35,14 +35,27 @@ using namespace std;
 class Solution {
 public:
     int longestConsecutive(vector<int>& nums) {
-        // 1. 去重
-        unordered_set<int> myset(nums.begin(), nums.end());
-        for (auto &item : myset){
-            if (!myset.count(item - 1)){ // 如果当前遍历元素不存在前驱元素。则遍历当前元素。
-                
-            }
+        unordered_set<int> hash_set;
+        int res = 0;
+        // 将元素放在set中
+        for (const auto &item : nums)
+        {
+            hash_set.insert(item);
         }
+        for (const auto &item : nums){
+            if (hash_set.find(item -1) == hash_set.end()){
+                int cout = 1;
+                int current_num = item;
+                while (hash_set.find(current_num + 1) != hash_set.end())
+                {
+                    cout++;
+                    current_num++;
+                }
+                res = max(res, cout);
+            }
 
+        }
+        return res;
     }
 };
 // @lc code=end
