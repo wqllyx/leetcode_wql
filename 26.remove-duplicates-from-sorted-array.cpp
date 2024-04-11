@@ -28,8 +28,18 @@ using namespace std;
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
-        auto iter =unique(nums.begin(), nums.end());
-        return static_cast<int>(iter - nums.begin());
+        // 使用双指针
+        int i = 1;//记录唯一元素应该插入的位置
+        auto beg = nums.begin() + 1;
+        for (; beg != nums.end(); ++beg)
+        {
+            // 如果找到不重复元素。
+            if (*beg != nums[i-1]){
+                nums[i] = *beg;
+                ++i;
+            }
+        }
+        return i;
     }
 };
 // @lc code=end
